@@ -9,9 +9,9 @@ app.secret_key = 'development key'
 def Index():
 	return render_template("index.html")
 
-@app.route('/triall.html')
+@app.route('/index.html')
 def Front():
-	return render_template("triall.html")
+	return render_template("index.html")
 
 @app.route('/About.html')
 def About():
