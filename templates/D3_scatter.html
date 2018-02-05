@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bar Chart</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+
+    <style> 
+        circle {
+            fill: none;
+            stroke-width: 4px;
+        }    
+    </style>
+
+    <!-- Alternatively use d3.js here -->
+    
+
+  </head>
+
+  <body>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+
+        <body>
+                <p> ------------------------------ </p>
+                <script>
+
+                    var outerWidth = 500;
+                    var outerHeight = 400;
+                    var rMin = 10;
+                    var rMax = 30;
+                    var xColumn = "Dowry Deaths";
+                    var yColumn = "Cruelty by Husband or his Relatives";
+                    var rColumn = "Assault on women with intent to outrage her modesty";
+                    var colorColumn = "STATE";
+
+                    var svg = d3.select("body").append("svg")
+                                .attr("width",outerWidth)
+                                .attr("height",outerHeight);
+
+                    var xScale = d3.scale.linear().range([0,outerWidth]);
+                    var yScale = d3.scale.linear().range([outerHeight,0]);
+                    var rScale = d3.scale.linear().range([rMin,rMax]);
+                    var colorScale = d3.scale.category10();
+
+                    function render(data){
+                        xScale.domain(d3.extent(data,function(d){ return d[xColumn]; }));
+                        yScale.domain(d3.extent(data,function(d){ return d[yColumn]; }));
+                        rScale.domain(d3.extent(data,function(d){ return d[rColumn]; }));
+
+                        var circles = svg.selectAll("circle").data(data);
+
+                        circles.enter().append("circle");
+
+                        circles
+                            .attr("cx",function(d){ return xScale(d[xColumn]); })
+                            .attr("cy",function(d){ return yScale(d[yColumn]); })
+                            .attr("r",function(d){ return rScale(d[rColumn]); })
+                            .attr("stroke",function(d){ return colorScale(d[colorColumn]); });
+
+                        circles.exit().remove();
+
+                    }
+
+                    function type(d) {
+                        d["Dowry Deaths"] = +d["Dowry Deaths"];
+                        d["Cruelty by Husband or his Relatives"] = +d["Cruelty by Husband or his Relatives"];
+                        d["Assault on women with intent to outrage her modesty"] = +d["Assault on women with intent to outrage her modesty"];
+                        return d;
+                    }
+
+                    d3.csv(src="{{ url_for('static', filename='crime.csv') }}",type,render);
+                    
+
+
+                    
+                                    </script>
+
+        </body>
+</body>
+
+</html>

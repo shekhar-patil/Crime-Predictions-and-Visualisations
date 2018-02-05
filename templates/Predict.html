@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Visualizations</title>
+</head>
+	<body>
+
+		<h3 style = "font-family:verdana; font-size:40px;">Visualizations</h3>
+	
+		{% for message in form.crime_type.errors %}
+		<div>{{ message }}</div>
+		{% endfor %}
+		{% for message in form.visual_type.errors %}
+		<div>{{ message }}</div>
+		{% endfor %}
+
+		<form action="http://localhost:5000/Predict.html" method=post>
+			<fieldset>
+				<legend> Select Your Choice </legend>
+				{{ form.hidden_tag() }}
+				<div style=font-size:20px;font-weight:bold;margin-left:150px;>
+					{{ form.crime_type.label }}<br>
+					{{ form.crime_type }}
+					<br><br>
+					{{ form.visual_type.label }}<br>
+					{{ form.visual_type }}
+					<br><br>
+					{{ form.submit }}
+				</div>
+			</fieldset>
+		</form>
+ 
+
+</body>
+</html>
+
+
+
+

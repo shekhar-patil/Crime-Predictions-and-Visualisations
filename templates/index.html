@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<!--  																	-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="Predictive Analytics and Visualizations of Crime Patterns in India">
+	<meta name="keywords" content="Crime Patterns,Visualizations,Prediction">
+	<meta name="author" content="JSSS">
+ 	<title> Criminology & Prediction System | Welcome </title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='index.css')}}">
+</head>
+<!--  																	-->
+
+<body>
+		<header>
+			<div class="container">
+				<div id="branding">
+					<img id="banner" src="{{url_for('static', filename='images/CAPS.png')}}" alt="Banner Image"/>
+					<h1>
+						<span class="highlight">Criminology</span> and <span class="highlight">Prediction</span> System
+					</h1>
+				</div>
+				<nav>
+					<ul>
+						<li class="current"><a href="#">Home</a></li>
+						<li><a href="About.html">About</a></li>
+						<li><a href="Services.html">Services</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<section style="background:url({{'static/crime-bg.jpeg'}});" id="showcase">
+			<div class="container">
+				<h1>Predictive Analytics and Visualization System for Crime Patterns in India</h1>
+				<p>Criminology is an area that focuses the scientific study of crime, criminal behavior and law enforcement. Crime analysis, a part of criminology, is a task that includes exploring and detecting crimes and their relationships with criminals. Applying data mining techniques made criminology an appropriate field due to the high volume of crime datasets and also the complexity of relationships between these kinds of data</p>			
+			</div>
+		</section>
+
+		<section id="entry">
+			<div class="container">
+				<h1>Subscribe for our Services</h1>
+				<form>
+					<input type="email" placeholder="Enter Email ">
+					<button type="submit" class="button_1">Subscribe</button>
+				</form>
+			</div>		
+		</section>
+
+		<section>
+			<div>		
+					
+					
+<img src="{{url_for('static', filename='images/web_links.png')}}" alt="Different Categoies of Website" usemap="#category" width="1270" height="500">
+
+<map name="category">
+  <area shape="rect" coords="126,9,448,450" alt="Predictions" href="Predict.html" target="_blank">
+  <area shape="rect" coords="449,14,770,450" alt="Visualizations" href="Predict.html" target="_blank">
+  <area shape="rect" coords="780,16,1120,450" alt="Statistics" href="Predict.html" target="_blank">
+</map>
+				
+				
+			</div>
+		</section>
+
+		<footer>
+			<p>Crime Prediction System, Copyright &copy; 2018</p>
+		</footer>
+	</body>
+</html>
