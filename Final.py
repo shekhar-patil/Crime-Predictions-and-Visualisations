@@ -1,5 +1,6 @@
 from flask import Flask,render_template, request, flash
 from selection_validator import ContactForm
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -30,13 +31,17 @@ def Predicts():
 			flash('All fields are required.')
 			return render_template('Predict.html', form=form)
 		else:
-			return render_template('D3_bar.html')
+			data = pd.read_csv('static/crime.csv')
+			return render_template('hello.html',tables=[data.to_html()],titles = ['Year', 'Rape', 'Dowry Deaths','Importation of Girls'])
+
 	elif request.method == 'GET':
 		return render_template('Predict.html', form=form)
 
+	
 @app.route('/D3_bar.html')
 def BarChart():
 	return render_template("D3_bar.html")
 
 if __name__=='__main__':
 	app.run(debug=True)
+
