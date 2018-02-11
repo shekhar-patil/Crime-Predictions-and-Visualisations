@@ -2,6 +2,16 @@ from flask import Flask,render_template, request, flash
 from selection_validator import ContactForm
 import pandas as pd
 
+
+
+import numpy as np
+import pandas as pd
+from sklearn import cross_validation,datasets, linear_model, metrics
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+
+
 app = Flask(__name__)
 
 app.secret_key = 'development key'
@@ -22,21 +32,46 @@ def About():
 def Services():
 	return render_template("Services.html")
 
+@app.route('/Visualization.html')
+def Visualization():
+	return render_template('Visualization.html')
 
-@app.route('/Predict.html', methods=['GET', 'POST'])
+@app.route('/Statistics.html')
+def Statistics():
+	return render_template('Statistics.html')
+
+
+@app.route('/Predict.html')
 def Predicts():
-	form = ContactForm()
-	if request.method == 'POST':
-		if form.validate() == False:
-			flash('All fields are required.')
-			return render_template('Predict.html', form=form)
-		else:
-			data = pd.read_csv('static/crime.csv')
-			return render_template('hello.html',tables=[data.to_html()],titles = ['Year', 'Rape', 'Dowry Deaths','Importation of Girls'])
+	return render_template('Predict.html')
 
-	elif request.method == 'GET':
-		return render_template('Predict.html', form=form)
+@app.route('/Graph.html',methods = ['POST'])
+def Graph():
 
+	Crime_type = request.form.get("type")
+	year = request.form.get("Predict_Year")
+	df = pd.read_csv("static/crime.csv")
+
+	X = df[['Year']]
+	y = df[[Crime_type]]
+	X_train,X_test,y_train,y_test = cross_validation.train_test_split(X,y,test_size=0.2)
+	regressor = LinearRegression()
+	regressor.fit(X_train,y_train)
+	accuracy = regressor.score(X_test,y_test)
+	accuracy = accuracy * 100
+	year = float(year)
+	X_test1 = np.array([year])
+	y_prediction1 = regressor.predict([X_test1])
+	
+
+
+
+
+
+
+	
+
+	return render_template('Graph.html',data = [Crime_type,year,accuracy,X_test1,y_prediction1])
 	
 @app.route('/D3_bar.html')
 def BarChart():
